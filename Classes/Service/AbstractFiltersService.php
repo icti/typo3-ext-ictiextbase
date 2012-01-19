@@ -83,6 +83,32 @@ abstract class Tx_Ictiextbase_Service_AbstractFiltersService implements Tx_Ictie
 		return $this->filterProperties;
 	}
 	
+	/**
+	 *
+	 * @param type $propertyName
+	 * @return Tx_Ictiextbase_Service_Filter|false 
+	 */
+	public function getFilterDefinition($propertyName){
+		if($this->filterProperties[$propertyName]){
+			return $this->filterProperties[$propertyName];
+		} else {
+			return false;
+		}
+	}
+	
+	/**
+	 *
+	 * @param type $propertyName
+	 * @return Tx_Ictiextbase_Service_Filter|false 
+	 */
+	public function isFilterDefined($propertyName){
+		if($this->filterProperties[$propertyName]){
+			return true;
+		} else {
+			return false;
+		}
+	}	
+	
 	
 	
 	/**

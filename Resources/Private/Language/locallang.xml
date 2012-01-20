@@ -6,6 +6,12 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
+			<label index="widget.paginate.previous">Previous</label>
+			<label index="widget.paginate.next">Next</label>
 		</languageKey>
+		<languageKey index="es" type="array">
+			<label index="widget.paginate.previous">Anterior</label>
+			<label index="widget.paginate.next">Siguiente</label>
+		</languageKey>		
 	</data>
 </T3locallang>

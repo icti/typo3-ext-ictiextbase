@@ -393,7 +393,7 @@ abstract class Tx_Ictiextbase_Service_AbstractFiltersService implements Tx_Ictie
 	 * @param propertyClassName $propertyValue
 	 * @return propertyClassName 
 	 */
-	function getPropertyValueAsObject(Tx_Ictiextbase_Service_Filter $filter, $propertyValue){
+	protected function getPropertyValueAsObject(Tx_Ictiextbase_Service_Filter $filter, $propertyValue){
 
 		
 		$propertyClassName = $filter->getClassName();
@@ -401,7 +401,9 @@ abstract class Tx_Ictiextbase_Service_AbstractFiltersService implements Tx_Ictie
 			return $propertyValue;
 		} else if($propertyClassName!==false) {
 			return $this->findObjectByUid($propertyValue, $propertyClassName);
-		}		
+		} else {
+			return $propertyValue;
+		}	
 	}
 	
 	

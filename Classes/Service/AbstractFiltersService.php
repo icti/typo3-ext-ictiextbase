@@ -137,15 +137,28 @@ abstract class Tx_Ictiextbase_Service_AbstractFiltersService implements Tx_Ictie
 	public function _setProperty($propertyName, $propertyValue) {
 		if ($this->_hasProperty($propertyName)) {
 			
+			
+			$filter = $this->filterProperties[$propertyName];
+			
+			if($filter->getIsMultiple()){
+				$this->$propertyName = $this->processMultipleValue($this->filterProperties[$propertyName], $propertyValue);
+			} else {
+				$this->$propertyName = $this->getPropertyValueAsObject($this->filterProperties[$propertyName], $propertyValue);
+			}
+			
+			/*
 			$propertyClassName = $this->filterProperties[$propertyName]->getClassName();
+			$propertyIsMultiple = $this->filterProperties[$propertyName]->getIsMultiple();
 			if($propertyClassName!==false && $propertyValue instanceof $propertyClassName){
 				$this->$propertyName = $propertyValue;
+			} else if($propertyClassName!==false && $propertyIsMultiple) {
+				$this->$propertyName = $this->processMultipleValue($this->filterProperties[$propertyName], $propertyValue);
 			} else if($propertyClassName!==false) {
 				$this->$propertyName = $this->findObjectByUid($propertyValue, $propertyClassName);
 			} else {
 				$this->$propertyName = $propertyValue;
 			}
-			
+			*/
 			
 			return TRUE;
 		}
@@ -337,6 +350,81 @@ abstract class Tx_Ictiextbase_Service_AbstractFiltersService implements Tx_Ictie
 			->execute()
 			->getFirst();
 	}     
+	
+	
+	/**
+	 *
+     * En un parámetro de un Action se puede definir el tipo como 
+     * Tx_Extbase_Persistence_ObjectStorage<Tx_Macmillan_Domain_Model_TypeOfMaterial> 
+     * pero el argumento que devuelve es un array con los id numéricos, 
+     * no hace el mapeo de los objetos dentro del Array... 
+     * esto habría que implementarlo a mano.
+	 * 
+	 *  
+	 * @param Tx_Ictiextbase_Service_Filter $filter
+	 * @param type $value
+	 * @return mixed 
+	 */
+	protected function processMultipleValue(Tx_Ictiextbase_Service_Filter $filter, $value){
+		if($filter->getIsMultiple()){
+			
+			if($value instanceof Tx_Extbase_Persistence_ObjectStorage){
+				return $value;
+			} else if (is_array($value)){
+				return $this->convertMultipleFilterValueToObjectStorage($filter, $value);
+			} else {
+				$valueExploded = explode(',', $value);
+				if(is_array($valueExploded) && count($valueExploded) > 1){
+					return $this->convertMultipleFilterValueToObjectStorage($filter, $valueExploded);
+				} else {
+					return $this->getPropertyValueAsObject($filter, $value);
+				}
+			}
+			
+		} else {
+			return $value;
+		}
+	}
+	
+	
+	/**
+	 *
+	 * @param Tx_Ictiextbase_Service_Filter $filter
+	 * @param propertyClassName $propertyValue
+	 * @return propertyClassName 
+	 */
+	function getPropertyValueAsObject(Tx_Ictiextbase_Service_Filter $filter, $propertyValue){
+
+		
+		$propertyClassName = $filter->getClassName();
+		if($propertyClassName!==false && $propertyValue instanceof $propertyClassName){
+			return $propertyValue;
+		} else if($propertyClassName!==false) {
+			return $this->findObjectByUid($propertyValue, $propertyClassName);
+		}		
+	}
+	
+	
+	/**
+	 *
+	 * @param Tx_Ictiextbase_Service_Filter $filter
+	 * @param array $value
+	 * @return ArrayIterator 
+	 */
+	protected function convertMultipleFilterValueToObjectStorage(Tx_Ictiextbase_Service_Filter $filter, array $value){
+		
+		$objectStorage = new ArrayIterator;
+		foreach($value as $k => $v){
+			$className = $filter->getClassName();
+			if($v instanceof $className ){
+				$objectStorage->append($v);
+			} else {
+				$vObject = $this->findObjectByUid($v, $className);
+				$objectStorage->append($vObject);
+			}
+		}
+		return $objectStorage;
+	}
 
 }
 ?>

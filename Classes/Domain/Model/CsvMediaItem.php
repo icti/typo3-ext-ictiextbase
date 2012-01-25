@@ -13,9 +13,11 @@
 class Tx_Ictiextbase_Domain_Model_CsvMediaItem implements Tx_Ictiextbase_Domain_Model_MediaInterface {
 
 	
-	public function __construct($fileName, $baseUrl){
+	public function __construct($fileName, $baseUrl, $caption = null, $altText = null){
 		$this->fileName = $fileName;
 		$this->baseUrl = $baseUrl;
+		$this->caption = $caption;
+		$this->altText = $altText;
 	}
 	
 	/**
@@ -29,6 +31,18 @@ class Tx_Ictiextbase_Domain_Model_CsvMediaItem implements Tx_Ictiextbase_Domain_
 	 * @var type 
 	 */
 	protected $fileName;
+	
+	/**
+	 *
+	 * @var type 
+	 */
+	protected $caption;
+	
+	/**
+	 *
+	 * @var type 
+	 */
+	protected $altText;
 	
 	/**
 	 *
@@ -56,6 +70,22 @@ class Tx_Ictiextbase_Domain_Model_CsvMediaItem implements Tx_Ictiextbase_Domain_
 			return $this->getBaseUrl().$this->getFileName();
 		}
 	}
+	
+	/**
+	 *
+	 * @return type 
+	 */
+	public function getAltText(){
+		return $this->altText;
+	}		
+	
+	/**
+	 *
+	 * @return type 
+	 */
+	public function getCaption(){
+		return $this->caption;
+	}		
 }
 
 ?>

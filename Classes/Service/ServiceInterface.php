@@ -24,7 +24,7 @@
 ***************************************************************/
 
 
-interface Tx_Ictiextbase_Service_ServiceInterface extends t3lib_Singleton {
+interface Tx_Ictiextbase_Service_ServiceInterface {
 
 }
 ?>

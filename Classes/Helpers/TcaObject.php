@@ -65,7 +65,9 @@ class Tx_Ictiextbase_Helpers_TcaObject  {
 	
 	protected function loadFullTCA(){
 		if(!$this->isFullTCALoaded){
-			t3lib_div::loadTCA($this->tableName);
+			if(!$this->tca['columns']){
+				t3lib_div::loadTCA($this->tableName);
+			}
 			$this->isFullTCALoaded = true;
 		}
 	}

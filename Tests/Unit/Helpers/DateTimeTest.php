@@ -163,6 +163,56 @@ class Tx_Ictiextbase_Helpers_DateTimeTest  extends Tx_Extbase_Tests_Unit_BaseTes
 		);		
 	}
 	
+	/**
+	 * @test
+	 */	
+	public function copyFromDateTime(){
+		
+		$original = new DateTime();
+		
+		$original->setTimeZone(new DateTimeZone('Asia/Tokyo'));
+        $original->setDate(1990, 1, 31);
+        $original->setTime(23,59);
+		
+		$copy = Tx_Ictiextbase_Helpers_DateTime::copyFromDateTime($original);
+		
+		$this->assertEquals(
+			$original->format('c'),
+			$copy->format('c')
+		);
+		
+		
+	}
+	
+	
+	/**
+	 * @test
+	 */	
+	public function comparison1(){
+        $this->fixture->setDate(1990, 1, 31);
+        $this->fixture->setTime(0,0);
+		
+		$date = new DateTime();
+        $date->setDate(1990, 1, 31);
+        $date->setTime(0,1);
+		
+		$this->assertTrue($date >= $this->fixture);
+	}
+	
+	/**
+	 * @test
+	 */	
+	public function comparison2(){
+        $this->fixture->setDate(1990, 1, 31);
+        $this->fixture->setTime(0,0);
+		
+		$date = new DateTime();
+        $date->setDate(1990, 1, 30);
+        $date->setTime(23,58);
+		
+		$this->assertTrue($date <= $this->fixture);
+	}	
+	
 	
 }
 

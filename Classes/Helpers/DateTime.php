@@ -32,6 +32,9 @@
  */
 class Tx_Ictiextbase_Helpers_DateTime extends DateTime  {
 
+
+	
+	
 	/**
 	 *
 	 * @return int Last day of the current date's month 
@@ -70,7 +73,14 @@ class Tx_Ictiextbase_Helpers_DateTime extends DateTime  {
 		
 	} 	
 	
-	public function diffMonths(Tx_Ictiextbase_Helpers_DateTime $diffDate){
+	public function diffMonths(DateTime $diffDate){
+		
+		if($diffDate instanceof Tx_Ictiextbase_Helpers_DateTime){
+			
+		} else {
+			$diffDate = Tx_Ictiextbase_Helpers_DateTime::copyFromDateTime($diffDate);
+		}
+		
 		$thisDateMonth = clone $this;
 		$thisDateMonth->toFirstDayOfMonth();
 		
@@ -103,5 +113,18 @@ class Tx_Ictiextbase_Helpers_DateTime extends DateTime  {
 	public function __toString (){
 		return $this->format('c');
 	}
+	
+	
+	/**
+	 * Creates a Tx_Ictiextbase_Helpers_DateTime object from a DateTime
+	 *
+	 * @param DateTime $source
+	 * @return Tx_Ictiextbase_Helpers_DateTime 
+	 */
+	static public function copyFromDateTime(DateTime $source){
+		$newDateTime = new Tx_Ictiextbase_Helpers_DateTime($source->format('c'));
+		return $newDateTime;
+	}
+	
 }
 ?>

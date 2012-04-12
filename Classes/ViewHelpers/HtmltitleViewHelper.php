@@ -40,7 +40,7 @@ class Tx_Ictiextbase_ViewHelpers_HtmltitleViewHelper extends Tx_Fluid_Core_ViewH
 
         global $GLOBALS;
 		
-		$title = $this->renderChildren() . ' : '.$GLOBALS['TSFE']->page['title'];
+		$title = html_entity_decode($this->renderChildren(), ENT_QUOTES | ENT_XHTML) . ' : '.$GLOBALS['TSFE']->page['title'];
 		
 		$GLOBALS['TSFE']->page['title'] = $title;
 		$GLOBALS['TSFE']->indexedDocTitle = $title;	

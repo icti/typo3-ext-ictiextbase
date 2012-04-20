@@ -303,7 +303,7 @@ abstract class Tx_Ictiextbase_Service_AbstractFiltersService implements Tx_Ictie
             
             return true;
             
-        } else if(!$this->noFiltersFromArguments && $this->arguments->hasArgument($filterName)){
+        } else if(!$this->settings['noFiltersFromArguments'] && $this->arguments->hasArgument($filterName)){
             
             if($this->arguments[$filterName]->getValue() != null){
                 return true;
@@ -326,7 +326,7 @@ abstract class Tx_Ictiextbase_Service_AbstractFiltersService implements Tx_Ictie
 			return $this->settings[$filterName];
         } 
         
-        if((!$this->noFiltersFromArguments || $argumentWasSetHere) && $this->arguments->hasArgument($filterName)){
+        if((!$this->settings['noFiltersFromArguments'] || $argumentWasSetHere) && $this->arguments->hasArgument($filterName)){
             if($this->arguments[$filterName]->getValue() != null){
                 return $this->arguments[$filterName]->getValue();
             }

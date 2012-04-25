@@ -53,6 +53,13 @@ abstract class Tx_Ictiextbase_Service_AbstractLookupService implements Tx_Ictiex
 	 */
 	protected function createQueryForObjectType($objectType) {
 		$query = $this->queryFactory->create($objectType);
+		if(count($query->getOrderings() == 0)){
+			$query->setOrderings(
+					array(
+						'name' => Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING
+					)
+			);
+		}
 		return $query;
 	}	
 	

@@ -1,0 +1,36 @@
+<script type="text/javascript">
+/* <![CDATA[ <![CDATA[ ]]>*/
+
+
+	jQuery(function(){
+	  jQuery("#{parentId}").change(function()<![CDATA[{]]>
+
+		var childValue = jQuery("#{childId}").val()
+		jQuery("#{childId}").attr('disabled',true);
+		jQuery.getJSON("{f:widget.uri(action:'autocomplete', ajax: 1)}",<![CDATA[{]]>'term': jQuery(this).val()}, function(j){
+
+		  var options = '';
+
+		  if(j.length > 0)<![CDATA[{]]>
+			  for (var i = 0; i < j.length; i++) <![CDATA[{]]>
+				options += '<option value="' + j[i].optionValue + '">' + j[i].optionDisplay + '</option>';				
+			  }
+			  jQuery("#{childId}").html(options);
+			  jQuery("#{childId}").attr('disabled',false);                                  
+			  jQuery("#{childContainerId}").css('display','');  
+			  jQuery("#{childId}").val(childValue)
+		  } else {
+			  jQuery("#{childId}").html(options);
+			  jQuery("#{childId}").attr('disabled',true);   
+			  jQuery("#{childContainerId}").css('display','none');  
+		  }
+		})
+	  })
+	}) 
+
+	jQuery(document).ready(function() <![CDATA[{]]>
+		jQuery("#{parentId}").trigger('change')
+	});
+
+/* <![CDATA[ ]]> ]]> */    
+</script>   

@@ -86,6 +86,10 @@ class Tx_Ictiextbase_Domain_Model_CsvMediaItem implements Tx_Ictiextbase_Domain_
 	public function getCaption(){
 		return $this->caption;
 	}		
+	
+	public function __toString(){
+		return $this->getFileName();
+	}
 }
 
 ?>

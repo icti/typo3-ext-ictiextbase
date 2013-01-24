@@ -95,7 +95,10 @@ class Tx_Ictiextbase_ViewHelpers_CObjectViewHelper extends Tx_Fluid_Core_ViewHel
       if($data instanceof Tx_Extbase_Persistence_LazyLoadingProxy){
         $data = $data->_loadRealInstance();  // De-lazy...
       }
-      $data = Tx_Extbase_Reflection_ObjectAccess::getGettableProperties($data);
+      if($data !== null){
+        $data = Tx_Extbase_Reflection_ObjectAccess::getGettableProperties($data);
+      }
+
 		} elseif (is_string($data)) {
 			$currentValue = $data;
 			$data = array($data);

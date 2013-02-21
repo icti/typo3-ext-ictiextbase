@@ -140,7 +140,7 @@ class Tx_Ictiextbase_ViewHelpers_Page_Content_GetViewHelper extends Tx_Fluid_Cor
         if(strlen(trim($flex[$tvField])) > 0){
           $contentUids = explode(',', $flex[$tvField]);
         } else {
-          break;
+          continue;
         }
       }
 

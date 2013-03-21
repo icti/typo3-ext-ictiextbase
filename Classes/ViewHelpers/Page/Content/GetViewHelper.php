@@ -137,7 +137,11 @@ class Tx_Ictiextbase_ViewHelpers_Page_Content_GetViewHelper extends Tx_Fluid_Cor
         $page = $pageSelect->getPage($pid);
         $flex = array();
         $GLOBALS['TSFE']->cObj->readFlexformIntoConf($page['tx_templavoila_flex'], $flex);
-        $contentUids = explode(',', $flex[$tvField]);
+        if(strlen(trim($flex[$tvField])) > 0){
+          $contentUids = explode(',', $flex[$tvField]);
+        } else {
+          continue;
+        }
       }
 
 			if (is_array($contentUids)) {

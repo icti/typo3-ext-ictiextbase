@@ -25,6 +25,21 @@
  */
 class Tx_Ictiextbase_ViewHelpers_Widget_Controller_PaginateController extends Tx_Fluid_ViewHelpers_Widget_Controller_PaginateController {
 
+
+		/*
+ 		 * Backport of http://forge.typo3.org/issues/10823
+ 		 */
+		protected function setViewConfiguration(Tx_Extbase_MVC_View_ViewInterface $view) {
+				$extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
+				$widgetViewHelperClassName = $this->request->getWidgetContext()->getWidgetViewHelperClassName();
+
+				if (isset($extbaseFrameworkConfiguration['view']['widget'][$widgetViewHelperClassName]['templateRootPath'])
+						&& strlen($extbaseFrameworkConfiguration['view']['widget'][$widgetViewHelperClassName]['templateRootPath']) > 0
+						&& method_exists($view, 'setTemplateRootPath')) {
+								$view->setTemplateRootPath(t3lib_div::getFileAbsFileName($extbaseFrameworkConfiguration['view']['widget'][$widgetViewHelperClassName]['templateRootPath']));
+						}
+ 		}
+
     
 	/**
 	 * @return void

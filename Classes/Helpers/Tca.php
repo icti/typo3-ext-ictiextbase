@@ -54,12 +54,14 @@ class Tx_Ictiextbase_Helpers_Tca  {
                         );
 
 
-        foreach($TCA[$table]['types'] as $k => $v){
-            $TCA[$table]['types'][$k]['showitem'] = preg_replace('/'.$column.',/', 
-                $column.';;;richtext[]:rte_transform[mode=ts],', 
-                $TCA[$table]['types'][$k]['showitem']
-            );        
-        }
+				if( is_array( $TCA[$table]['types'] ) ){
+        		foreach($TCA[$table]['types'] as $k => $v){
+            		$TCA[$table]['types'][$k]['showitem'] = preg_replace('/'.$column.',/', 
+                		$column.';;;richtext[]:rte_transform[mode=ts],', 
+                		$TCA[$table]['types'][$k]['showitem']
+            		);        
+        		}
+				}
 		
 	}
     

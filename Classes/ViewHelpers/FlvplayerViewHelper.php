@@ -37,10 +37,11 @@ class Tx_Ictiextbase_ViewHelpers_FlvplayerViewHelper extends Tx_Fluid_Core_ViewH
 	 * @param string $url The video URL
 	 * @param string $width Player width (optional)
 	 * @param string $height Player height (optional)
+	 * @param string $autoPlay Autoplay video (optional)
 	 * @return string Rendered string
 	 * @api
 	 */
-	public function render($url, $width=null, $height=null) {
+	public function render($url, $width=null, $height=null, $autoPlay = FALSE) {
 		$output = '';
 		if ($url === NULL) {
 			return '';
@@ -53,6 +54,10 @@ class Tx_Ictiextbase_ViewHelpers_FlvplayerViewHelper extends Tx_Fluid_Core_ViewH
 		if($height > 0){
 			$flvplayerConf['height'] = $height;
 		}		
+		if($autoPlay !== FALSE){
+				$flvplayerConf['playerParams.']['autoStart'] = $autoPlay;
+		}
+
 		$flvPlayer = t3lib_div::makeInstance('tx_flvplayer2_pi1');
 		$output = $flvPlayer->getVideoCode($url, $flvplayerConf);
 		

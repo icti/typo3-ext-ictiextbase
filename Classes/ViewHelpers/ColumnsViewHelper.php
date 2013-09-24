@@ -52,9 +52,11 @@ class Tx_Ictiextbase_ViewHelpers_ColumnsViewHelper extends Tx_Fluid_Core_ViewHel
 	 * @param array $colSetNames The array or Tx_Extbase_Persistence_ObjectStorage containing class names to be iterated over
 	 * @param string $colSetClass The name of the base colset class
 	 * @param string $iteration (pass the one from the <f:for>) The name of the variable to store iteration information (index, cycle, isFirst, isLast, isEven, isOdd)
+	 * @param string $wrap1Tag Defaults to div 
+	 * @param string $wrap2Tag Defaults to div
 	 * @return string Rendered result
 	 */
-	public function render($colSetNames, $colSetClass, $iteration) {
+	public function render($colSetNames, $colSetClass, $iteration, $wrap1Tag = 'div', $wrap2Tag = 'div') {
 		
 		$output = '';
 		if ($colSetNames === NULL) {
@@ -68,14 +70,14 @@ class Tx_Ictiextbase_ViewHelpers_ColumnsViewHelper extends Tx_Fluid_Core_ViewHel
 		}
 		
 		if($this->currentCycleIndex == 0){
-			$output .= '<div class="'.$colSetClass.'">';
+			$output .= '<'.$wrap1Tag.' class="'.$colSetClass.'">';
 		}
 		
-		$output .= '<div class="'.$this->colSetNames[$this->currentCycleIndex].'">'.$this->renderChildren().'</div>';
+		$output .= '<'.$wrap2Tag.' class="'.$this->colSetNames[$this->currentCycleIndex].'">'.$this->renderChildren().'</'.$wrap2Tag.'>';
 		
 		if($this->currentCycleIndex == count($this->colSetNames)-1 || $iteration['isLast']){
 			
-			$output .= '</div>';
+			$output .= '</'.$wrap1Tag.'>';
 		}		
 
 		

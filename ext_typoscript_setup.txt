@@ -1,0 +1,5 @@
+config.tx_extbase.objects {
+    Tx_Extbase_MVC_Web_Routing_UriBuilder {
+        className = Tx_Ictiextbase_MVC_Web_Routing_UriBuilder
+    }
+}

@@ -1,3 +1,4 @@
+{namespace ficti=Tx_Ictiextbase_ViewHelpers}
 <f:if condition="{configuration.insertAbove}">
 	<f:render section="paginator" arguments="{pagination: pagination}" />
 </f:if>
@@ -17,7 +18,7 @@
                     <ul class="pagination-digg"> 
                         <f:if condition="{pagination.previousPage}">
                             <li class="anterior">
-                                <f:widget.link arguments="{currentPage: pagination.previousPage}">&laquo;&nbsp;<f:translate key="widget.paginate.previous">Previous</f:translate></f:widget.link>
+                                <ficti:widget.link arguments="{currentPage: pagination.previousPage, addQueryStringMethod:'GET,POST'}">&laquo;&nbsp;<f:translate key="widget.paginate.previous">Previous</f:translate></ficti:widget.link>
                             </li>
                         </f:if>
                         <f:for each="{pagination.pages}" as="page">
@@ -31,10 +32,10 @@
                                     <li>
                                         <f:if condition="{page.number} > 1">
                                             <f:then>
-                                                <f:widget.link arguments="{currentPage: page.number}">{page.number}</f:widget.link>
+                                                <ficti:widget.link arguments="{currentPage: page.number, addQueryStringMethod:'GET,POST'}">{page.number}</ficti:widget.link>
                                             </f:then>
                                             <f:else>
-                                                <f:widget.link>{page.number}</f:widget.link>
+                                                <ficti:widget.link arguments="{addQueryStringMethod:'GET,POST'}">{page.number}</ficti:widget.link>
                                             </f:else>
                                         </f:if>
                                     </li>
@@ -43,7 +44,7 @@
                         </f:for>
                         <f:if condition="{pagination.nextPage}">
                             <li class="siguiente">
-                                <f:widget.link arguments="{currentPage: pagination.nextPage}"><f:translate key="widget.paginate.next">Next</f:translate>&nbsp;&raquo;</f:widget.link>
+                                <ficti:widget.link arguments="{currentPage: pagination.nextPage, addQueryStringMethod:'GET,POST'}"><f:translate key="widget.paginate.next">Next</f:translate>&nbsp;&raquo;</ficti:widget.link>
                             </li>
                         </f:if>
                     </ul>

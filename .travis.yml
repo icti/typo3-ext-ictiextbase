@@ -20,9 +20,4 @@ before_script:
   - mv typo3-ext-ictiextbase typo3conf/ext/ictiextbase
 
 script:
-  - >
-    if [[ "$COVERAGE" == "0" ]]; then
-      echo;
-      echo "Running unit tests";
-      ./bin/phpunit --colors -c typo3conf/ext/ictiextbase/Build/UnitTests.xml
-    fi
+  - ./bin/phpunit --colors -c typo3conf/ext/ictiextbase/Build/UnitTests.xml

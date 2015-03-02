@@ -1,0 +1,14 @@
+{
+    "name": "icti/ictiextbase",
+    "type": "typo3-cms-extension",
+    "description": "ICTI extbase/fluid utilities",
+    "homepage": "https://github.com/icti/typo3-ext-ictiextbase",
+    "license": ["GPL-2.0+"],
+    "keywords": ["TYPO3 CMS"],
+    "support": {
+        "issues": "https://github.com/icti/typo3-ext-ictiextbase/issues"
+    },
+    "require": {
+      "typo3/cms": "~6.2"
+    }
+}
